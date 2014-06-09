@@ -1,0 +1,12 @@
+{
+	"name": "leewillis77/wp-cli-wpec-command",
+	"description": "Command for working with WP e-Commerce and WP CLI",
+	"homepage": "https://github.com/leewillis77/wp-cli-wpec-command",
+	"license": "GPLv2",
+	"require": {
+		"php": ">=5.4"
+	},
+	"autoload": {
+		"files": [ "commands.php" ]
+	}
+}
