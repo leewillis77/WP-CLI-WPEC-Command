@@ -1,5 +1,5 @@
-`wp wpec`
-===========
+WP-CLI WP e-Commerce commands
+=============================
 
 **This is a Work In Progress - Do not expect it to work or do anything interesting**
 
