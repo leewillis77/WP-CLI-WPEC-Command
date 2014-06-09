@@ -3,9 +3,7 @@
 
 **This is a Work In Progress - Do not expect it to work or do anything interesting**
 
-This is a package that implements the `wp wpec` command for [WP-CLI](http://wp-cli.org).
-
-It implements useful functions for working with, developing for, or testing the [WP e-Commerce](http://wordpress.org/extend/wp-e-commerce) plugin with WP-CLI.
+This is a package that implements the various commands for [WP-CLI](http://wp-cli.org) for working with, developing for, or testing the [WP e-Commerce](http://wordpress.org/extend/wp-e-commerce) plugin.
 
 ### Requirements
 
