@@ -139,6 +139,48 @@ class Wpec_Category_Command extends \WP_CLI\CommandWithDBObject {
 		}
 		WP_CLI::success( "All terms deleted." );
 	}
+
+	/**
+	 * Create a new category.
+	 *
+	 * ## OPTIONS
+	 *
+	 * <name>
+	 * : The name of the category.
+	 *
+	 * [--description=<description>]
+	 * : The description of the category.
+	 *
+	 * [--parent=<parent_id>]
+	 * : The parent category ID to assign to this category.
+	 *
+ 	 * [--slug=<slug>]
+	 * : The slug to assign to this category.
+	 *
+	 * ## EXAMPLES
+	 *
+	 *     wp wpec-category create "My category"
+	 *
+	 *     wp wpec-category create "Sub-category" --parent=4 --slug="sub-cat" --description="More specific awesome stuff"
+	 */
+	public function create( $args, $assoc_args ) {
+
+		$name        = $args[0];
+		$description = isset( $assoc_args['description'] ) ? $assoc_args['description'] : '';
+		$parent      = isset( $assoc_args['parent'] ) ? $assoc_args['parent']  : 0;
+		$slug        = isset( $assoc_args['slug'] ) ? $assoc_args['slug'] : '';
+
+		$args = array(
+			'description' => $description,
+			'slug'        => $slug,
+			'parent'      => $parent,
+		);
+		if ( wp_insert_term( $name, 'wpsc_product_category', $args ) ) {
+			WP_CLI::success( "Category successfully created." );
+		} else {
+			WP_CLI::error( "Category could not be created." );
+		}
+	}
 }
 
 WP_CLI::add_command( 'wpec-category', 'Wpec_Category_Command' );
