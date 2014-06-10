@@ -2,6 +2,13 @@
 
 /**
  * Commands for working with WP e-Commerce product categories.
+ *
+ * @todo This is fairly generic, and doesn't support WP e-Commerce specific category values such as:
+ *   * Category images
+ *   * Product display setting
+ *   * Thumbnail size
+ *   * Target market restrictions
+ *   * Checkout settings
  */
 class Wpec_Category_Command extends \WP_CLI\CommandWithDBObject {
 
@@ -120,11 +127,11 @@ class Wpec_Category_Command extends \WP_CLI\CommandWithDBObject {
 		// Validate all term IDs are numeric and valid before doing anything
 		foreach ( $args as $term_id ) {
 			if ( !is_numeric( $term_id ) ) {
-				WP_CLI::error( "Invalid term ID provided: $term_id." );
+				WP_CLI::error( "Invalid category ID provided: $term_id." );
 			}
 			$term = get_term_by( 'id', $term_id, 'wpsc_product_category' );
 			if ( !$term ) {
-				WP_CLI::error( "Invalid term ID provided: $term_id." );
+				WP_CLI::error( "Invalid category ID provided: $term_id." );
 			}
 		}
 
@@ -132,12 +139,12 @@ class Wpec_Category_Command extends \WP_CLI\CommandWithDBObject {
 		foreach ( $args as $term_id ) {
 			$result = wp_delete_term( $term_id, 'wpsc_product_category' );
 			if ( $result ) {
-				WP_CLI::line( "Term ID $term_id successfully removed." );
+				WP_CLI::line( "Category ID $term_id successfully removed." );
 			} else {
-				WP_CLI::error( "Term ID $term_id could not be removed." );
+				WP_CLI::error( "Category ID $term_id could not be removed." );
 			}
 		}
-		WP_CLI::success( "All terms deleted." );
+		WP_CLI::success( "All categories deleted." );
 	}
 
 	/**
