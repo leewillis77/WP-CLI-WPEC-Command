@@ -101,6 +101,44 @@ class Wpec_Category_Command extends \WP_CLI\CommandWithDBObject {
 		}
 
 	}
+
+	/**
+	 * Delete one or more product categories.
+	 *
+	 * ## OPTIONS
+	 *
+	 * <id>...
+	 * : The term ID of the category to remove.
+	 *
+	 * ## EXAMPLES
+	 *
+	 *     # Delete term 7
+	 *     wp wpec-category delete 7
+	 */
+	public function delete( $args, $assoc_args ) {
+
+		// Validate all term IDs are numeric and valid before doing anything
+		foreach ( $args as $term_id ) {
+			if ( !is_numeric( $term_id ) ) {
+				WP_CLI::error( "Invalid term ID provided: $term_id." );
+			}
+			$term = get_term_by( 'id', $term_id, 'wpsc_product_category' );
+			if ( !$term ) {
+				WP_CLI::error( "Invalid term ID provided: $term_id." );
+			}
+		}
+
+		reset( $args );
+		foreach ( $args as $term_id ) {
+			$result = wp_delete_term( $term_id, 'wpsc_product_category' );
+			if ( $result ) {
+				WP_CLI::line( "Term ID $term_id successfully removed." );
+			} else {
+				WP_CLI::error( "Term ID $term_id could not be removed." );
+			}
+		}
+		WP_CLI::success( "All terms deleted." );
+	}
 }
 
 WP_CLI::add_command( 'wpec-category', 'Wpec_Category_Command' );
