@@ -13,20 +13,29 @@ This is a package that implements the various commands for [WP-CLI](http://wp-cl
 
 ### Installation
 
-First, make sure you have the [package index](http://wp-cli.org/package-index/) configured:
+* Head to ~/.wp-cli/commands
+* Clone this repo
+* Edit (or create) ~/.wp-cli/config.yml and ensure that it requires the new commands
 
-```
-cd ~/.wp-cli/
-php composer.phar config repositories.wp-cli composer http://wp-cli.org/package-index/
-```
-
-Then, just install the package:
-
-```
-php composer.phar require leewillis77/wp-cli-wpec-command=dev-master
+```yaml
+require:
+  - commands/WP-CLI-WPEC-Command/commands.php
 ```
 
 ### Usage
 
-@todo
+Some example usage:
 
+```bash
+# Output all categories as a table
+$ wp wpec-category list
+
+# Output all categories as a CSV file
+$ wp wpec-category list --format=csv
+
+# Get category with ID 7
+$ wp wpec-category get 7
+
+# Get category with ID 7, formatted as JSON
+$ wp wpec-category get example-category --format=json
+```
