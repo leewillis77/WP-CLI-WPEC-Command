@@ -181,6 +181,40 @@ class Wpec_Category_Command extends \WP_CLI\CommandWithDBObject {
 			WP_CLI::error( "Category could not be created." );
 		}
 	}
+
+	/**
+	 * Generate product categories.
+	 *
+	 * ## OPTIONS
+	 *
+	 * [--count=<number>]
+	 * : How many categories to generate. Default: 10
+	 *
+	 * ## EXAMPLES
+	 *
+	 *     # Generate 10 product categories
+	 *     wp wpec-category generate
+	 *
+	 *     # Generate 20 product categories
+	 *     wp wpec-category generate --count=20
+	 *
+	 */
+	function generate( $args, $assoc_args ) {
+		$count = isset( $assoc_args['count'] ) ? (int) $assoc_args['count'] : 10;
+
+		$notify = \WP_CLI\Utils\make_progress_bar( 'Generating categories', $count );
+
+		for ( $i = 1; $i <= $count; $i++ ) {
+			$name = sprintf( 'Product category %d', $i );
+			if ( wp_insert_term( $name, 'wpsc_product_category', array() ) ) {
+				$notify->tick();
+			} else {
+				WP_CLI::error( "Failed to create $name" );
+			}
+		}
+		$notify->finish();
+	}
+
 }
 
 WP_CLI::add_command( 'wpec-category', 'Wpec_Category_Command' );
