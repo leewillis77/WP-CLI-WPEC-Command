@@ -26,6 +26,8 @@ require:
 
 Some example usage:
 
+#### Categories
+
 ```bash
 # Output all categories as a table
 $ wp wpec-category list
@@ -38,4 +40,13 @@ $ wp wpec-category get 7
 
 # Get category with ID 7, formatted as JSON
 $ wp wpec-category get example-category --format=json
+
+# Remove category ID 7
+$ wp wpec-category delete 7
+
+# Create a new category called Widgets
+$ wp wpec-category create "Widgets" --slug="my-widgets" --parent=8 --description="Super cool widgets"
+
+# Generate 50 categories for testing
+$ wp wpec-category generate --count=50
 ```
